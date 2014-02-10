@@ -16,15 +16,15 @@ public class Answer extends Model{
 	@Column(length=20)
 	public String thirdWord;
 	public double usedTime;
-	@Column(length=3)
-	public int countdownResult;
+	@Column(length=20)
+	public String countdownResult;
 
 	@ManyToOne
 	public User user;
 	@ManyToOne
 	public Quiz quiz;
 
-	public Answer(String firstWord,String secondWord,String thirdWord,double usedTime,int countdownResult, User user, Quiz quiz){
+	public Answer(String firstWord,String secondWord,String thirdWord,double usedTime,String countdownResult, User user, Quiz quiz){
 		this.firstWord = firstWord;
 		this.secondWord = secondWord;
 		this.thirdWord = thirdWord;

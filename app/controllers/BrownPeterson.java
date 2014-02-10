@@ -96,6 +96,7 @@ public class BrownPeterson extends Controller {
             return ok(proc.render(user));
         }
         TimeLog.create(new Date(), user, Trial.find.byId(new Long(1))).save();
+        questionNumber = 0;
         return redirect(routes.BrownPeterson.experiment(new Long(1)));
     }
 }

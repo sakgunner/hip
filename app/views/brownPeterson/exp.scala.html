@@ -3,6 +3,7 @@
 
 <script src="@routes.Assets.at("javascripts/brownPetersonExperiment.js")"></script>
 <script src="@routes.Assets.at("javascripts/submitButton.js")"></script>
+<script src="@routes.Assets.at("javascripts/disableNavigatorFunction.js")"></script>
  <script>
 window.location.hash="no-back-button";
 window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
@@ -29,21 +30,20 @@ window.onhashchange=function(){window.location.hash="no-back-button";}
 </div>
 <div class="rabbitContainer">
   <div id="hopRabbit"class="rabbit"></div>
-  <div id="cloud" class="clouds"></div>
   <div id="counter" class="counterText" align="center">@count</div>
 </div>
 <div class="answerBox">
    
-  <h3 align="center" id="timeLeft" >  </h3>  
+  <h3 align="center" id="timeLeft"> &nbsp </h3>  
   <span class="headerBox" id="ansTag">คำตอบ</span>
   <span class="headerNumberBox" id="numberTag">ใส่ตัวเลข</span>
-        <form id = "answerForm" action="@routes.BrownPeterson.experiment(trialId)" method="post">
-          <input class="inputBox" id = "firstWord" name = "firstWord" type="text" placeholder="      คำตอบ" disabled />
-          <input class="inputBox" id = "secondWord" name = "secondWord" type="text" placeholder="      คำตอบ" disabled />
-          <input class="inputBox" id = "thirdWord" name = "thirdWord" type="text" placeholder="     คำตอบ"  disabled />
-          <input class="inputNumberBox" id = "countdownResult" name = "countdownResult" type="text" placeholder="  เลข" disabled />
-          <input class="inputNumberBox" id = "usedTime" name = "usedTime" type="text" disabled hidden/>
-          <input type="submit" class="sbutton" disabled id="SubmitButton" value="ยืนยัน" onclick="return submitButtonClick()"/>
+        <form id = "answerForm" action="@routes.BrownPeterson.experiment(trialId)" method="post" name="answerForm" >
+          <input class="inputBox" maxlength="20" id = "firstWord" name = "firstWord" type="text" placeholder="   คำตอบ" autofocus />
+          <input class="inputBox"  maxlength="20"id = "secondWord" name = "secondWord" type="text" placeholder="   คำตอบ" />
+          <input class="inputBox" maxlength="20" id = "thirdWord" name = "thirdWord" type="text" placeholder="  คำตอบ"  />
+          <input class="inputNumberBox" maxlength="3" id = "countdownResult" onkeypress='validate(event)'  name = "countdownResult" type="text" placeholder="  เลข" />
+          <input class="inputNumberBox" id = "usedTime" name = "usedTime" type="text" hidden/>
+          <input type="submit" class="sbutton" id="SubmitButton" value="ยืนยัน" onclick="return submitButtonClick()"/>
         </form>
 </div>
 @footer()

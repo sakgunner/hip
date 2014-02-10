@@ -1,7 +1,14 @@
 @(form: Form[UserForm])
 @header("Human Information Processing Lab")
-<body>
 
+<script>
+
+    function init(){
+        document.loginForm.username.focus();
+    }
+</script>
+
+<body onload="init()" >
 <!-- Page Header -->
 
   <h3 class="hipTitle"align="center" >Human Information Processing Lab</h3>
@@ -25,7 +32,7 @@
             
 <!-- Login Right Panel : Username form --> 
 
-            <form action="@routes.Application.authenticate()" method="post"> 
+            <form action="@routes.Application.authenticate()"name="loginForm" method="post"> 
             <div class="form-group">
               <input name="username" style="padding:10px 38px;" type="text" class="form-control login-field login-name" value="" placeholder="Username">
               <label class="login-field-icon fui-user" for="login-name"></label>

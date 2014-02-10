@@ -23,7 +23,7 @@ public class AnswerTest extends WithApplication {
 		new User("123","Secret").save();
 		User user = User.find.byId("123");
 
-		assertNotNull(new Answer("first word", "second word", "third word", 13.9, 99, user, quiz));
+		assertNotNull(new Answer("first word", "second word", "third word", 13.9,"TDM", user, quiz));
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class AnswerTest extends WithApplication {
 		new User("123","Secret").save();
 		User user = User.find.byId("123");
 		
-		Answer answer = new Answer("first word", "second word", "third word", 13.9, 99, user, quiz);
+		Answer answer = new Answer("first word", "second word", "third word", 13.9,"TDM", user, quiz);
 
 		assertEquals("first word", answer.firstWord);
 		assertEquals("second word", answer.secondWord);
