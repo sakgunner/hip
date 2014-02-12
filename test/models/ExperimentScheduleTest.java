@@ -74,4 +74,43 @@ public class ExperimentScheduleTest extends WithApplication {
 		new ExperimentSchedule("Experiment 1", 5, nextYearDate, nextYearDate, ExperimentType.BROWNPETERSON).save();
 		assertEquals(1, ExperimentSchedule.getWorkingExperimentsByType(ExperimentType.BROWNPETERSON).size());
 	}
+
+	@Test
+	public void experiment_should_generate_new_brownPeterson_trials_by_noOfTrial(){
+		Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -1);
+        Date lastYearDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, +2);
+        Date nextYearDate = calendar.getTime();
+		new ExperimentSchedule("Experiment 1", 5, lastYearDate, 
+			nextYearDate, ExperimentType.BROWNPETERSON).save();
+		
+		for(int i = 0; i < 20;i++){
+			new Question("w1","w2","w3").save();
+		}
+
+		ExperimentSchedule exp = ExperimentSchedule.find.byId(1L);
+		exp.generateTrials();
+		assertEquals(5, exp.trials.size());
+
+	}
+
+	@Test
+	public void experiment_should_generate_new_brownPeterson_quiz_in_the_trial_by_total_question(){
+		Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -1);
+        Date lastYearDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, +2);
+        Date nextYearDate = calendar.getTime();
+		new ExperimentSchedule("Experiment 1", 5, lastYearDate, 
+			nextYearDate, ExperimentType.BROWNPETERSON).save();
+
+		for(int i = 0; i < 20;i++){
+			new Question("w1","w2","w3").save();
+		}
+		
+		ExperimentSchedule exp = ExperimentSchedule.find.byId(1L);
+		exp.generateTrials();
+		assertEquals(3, exp.trials.get(0).quizzes.size());
+	}
 }

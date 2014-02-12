@@ -29,8 +29,10 @@ public class ExperimentSchedule extends Model{
 	public Date expireDate;
 	public ExperimentType experimentType;
 	
-	@OneToMany
-	public List<Trial> trials = new ArrayList<Trial>();
+	@OneToMany(mappedBy="schedule")
+	public List<models.brownPeterson.Trial> trials = new ArrayList<models.brownPeterson.Trial>();
+	@OneToMany(mappedBy="schedule")
+	public List<models.stroopEffect.Trial> stroopTrials = new ArrayList<models.stroopEffect.Trial>();
 
 
 	public ExperimentSchedule(String name, int noOfTrial, Date startDate, Date expireDate, ExperimentType experimentType) {
@@ -66,6 +68,25 @@ public class ExperimentSchedule extends Model{
 			}
 		}
 		return type;
+	}
+
+	public void generateTrials(){
+		switch(this.experimentType){
+			case BROWNPETERSON : generateTrialsByNoOfTrial() ;break;
+			case STROOPEFFECT : break;
+		}
+	}
+
+	private void generateTrialsByNoOfTrial(){
+		for(int i = 0; i < this.noOfTrial; i++){
+			models.brownPeterson.Trial trial = models.brownPeterson.Trial.create(this);
+            trial.save();
+            List<models.brownPeterson.Question> questions 
+            	= models.brownPeterson.Question.getQuestionListBy(models.brownPeterson.Trial.TOTAL_QUESTION); // 3 is number of quiz in trial.
+            for(int j = 0; j < models.brownPeterson.Trial.TOTAL_QUESTION; j++){
+                models.brownPeterson.Quiz.create(100, 5, trial, questions.get(j)).save();
+            }
+		}
 	}
 
 	@SuppressWarnings("unchecked")

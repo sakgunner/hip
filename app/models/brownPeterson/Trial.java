@@ -48,6 +48,8 @@ public class Trial extends Model{
 		return false;
 	}
 */
+	
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long, Trial> find = new Finder(Long.class, Trial.class);
 
